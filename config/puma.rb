@@ -25,7 +25,8 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
- workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+ #workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+ workers Integer(ENV['WEB_CONCURRENCY'] || 2)
  threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
  threads threads_count, threads_count
 
