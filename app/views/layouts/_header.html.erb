@@ -3,11 +3,13 @@
       <div class="container">
         <%= link_to "Sample app", root_path, id: "logo" %>
         <nav>
-          <ul class="nav pull-right">
-            <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Help", help_path %></li>
-            <li><%= link_to "Sign in", '#' %></li>
-          </ul>
+          <div class="nav pull-right">
+            <span><%= link_to "Home", root_path, {:style => 'font-size:18px'} %></span>
+            <span>&nbsp</span>
+            <span><%= link_to "Help", help_path, {:style => 'font-size:18px'}  %></span>
+            <span>&nbsp</span>
+            <span><%= link_to "Sign in", '#', {:style => 'font-size:18px'} %></span>
+          </div>
         </nav>
       </div>
     </div>
