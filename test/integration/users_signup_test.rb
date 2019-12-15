@@ -27,5 +27,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     follow_redirect!
     #check if the template after a redirect is 'users/show'
     assert_template 'users/show'
+    assert is_logged_in?
   end
 end

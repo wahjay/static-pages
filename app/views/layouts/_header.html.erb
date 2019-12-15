@@ -1,16 +1,29 @@
-<header class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
+<header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <%= link_to "Sample app", root_path, id: "logo" %>
         <nav>
-          <div class="nav pull-right">
-            <span><%= link_to "Home", root_path, {:style => 'font-size:18px'} %></span>
-            <span>&nbsp</span>
-            <span><%= link_to "Help", help_path, {:style => 'font-size:18px'}  %></span>
-            <span>&nbsp</span>
-            <span><%= link_to "Sign in", '#', {:style => 'font-size:18px'} %></span>
-          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home", root_path, {:style => 'font-size:18px'} %></li>
+            <li><%= link_to "Help", help_path, {:style => 'font-size:18px'}  %></li>
+            <% if logged_in? %>
+              <li><% link_to "Users", '#' %></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size:18px">
+                  Account <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Profile", current_user, {:style => 'font-size:16px' } %></li>
+                  <li><%= link_to "Settings", '#', {:style => 'font-size:16px' } %></li>
+                  <li class="divider"></li>
+                  <li>
+                    <%= link_to "Log out", logout_path, method: :delete %>
+                  </li>
+                </ul>
+              </li>
+            <% else %>
+              <li><%= link_to "Log in", login_path, {:style => 'font-size:18px'} %></li>
+            <% end %>
+          </ul>
         </nav>
       </div>
-    </div>
   </header>
