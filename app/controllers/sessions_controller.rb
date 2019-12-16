@@ -9,7 +9,10 @@ class SessionsController < ApplicationController
       # Log the user in and redirect to the user's show page
       log_in(user)
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user
+
+      #if there is a destination the current_user wnat to go
+      #we redirect them to there, if not, we redirect them to their profiles page
+      redirect_back_or(user)
     else
       #Create an error messages
       #'flash.now' is specifically designed for displaying flash messages on redered pages
