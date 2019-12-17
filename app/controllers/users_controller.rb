@@ -25,14 +25,9 @@ class UsersController < ApplicationController
     #we could resolve this by using strong parameters
     @user = User.new(user_params)
     if @user.save
-      #log in the newly created user
-      log_in(@user)
-      # Handle a successful save.
-      #the message displayed after a sucessful signup
-      #and will disappear on visiting a second page
-      flash[:success] = "Welcome to the Sample App!"
-      #equivalent to 'redirect_to user_url(@user)'
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       #if fails, render the sign up form again
       render 'new'

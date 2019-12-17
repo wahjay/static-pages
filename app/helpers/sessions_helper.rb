@@ -24,7 +24,7 @@ module SessionsHelper
     elsif (user_id = cookies.signed[:user_id])
       #'cookies.signed[:user_id]' automatically decrypt user_id and use it
       user = User.find_by(id: cookies.signed[:user_id])
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in(user)
         @current_user = user
       end
