@@ -92,6 +92,8 @@ footer {
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
   color: #999;
+  bottom: 0;
+  position: fixed;
 }
 
 footer a {
@@ -110,7 +112,7 @@ footer ul {
 }
 footer ul li {
   float: left;
-  margin-left: 10px;
+  margin-left: 1000px;
 }
 
 /* miscellaneous */
