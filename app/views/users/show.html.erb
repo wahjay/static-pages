@@ -7,10 +7,15 @@
         <div style="test-align:center"><%= @user.name %></div>
       </h1>
     </section>
+    <!-- rendering users' relationship stats -->
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
   </aside>
 
   <!-- display microposts -->
   <div class="col-md-8">
+    <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
@@ -20,8 +25,3 @@
     <% end %>
   </div>
 </div>
-
-<!--
-<p> <#%= @user.name %> </p>
-<p> <#%= @user.email %> </p>
--->

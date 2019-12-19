@@ -1,0 +1,12 @@
+//Explanation: these two lines are mainly for performance optimization
+//Every time when we go to others' profile and do follow or unfollow, there are only things that need to change:
+//the follow/unfollow button and the following/followers count.
+//Therefore, it would be efficient if we just refresh the button and update the corresponding count.
+//First line: If a user hits the 'follot button', the button change to 'unfollow button'
+//Second line: the correspoidng following count will be incremented by 1
+//Note that the whole page will remain the same except for those two elements mentioned above.
+//Therefore, there is no page refresh when a user does follow/unfollow because of these two lines
+//because there is no rendering.
+//The logic is the same for 'destory.js.erb'
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
+$("#followers").html('<%= @user.followers.count %>');

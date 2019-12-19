@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :index, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
@@ -57,25 +57,26 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
   private
     #using strong parameters to specify what attributes of the user we want to permit
     #it will raise an error if the :user attribute is missing
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
-
-=begin
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        flash[:danger] = "Please log in."
-        #store the page the user wants to go to
-        #just so when they log in, we could redirect them to there
-        store_location
-        redirect_to login_url
-      end
-    end
-=end
 
     # Confirms the correct user.
    def correct_user

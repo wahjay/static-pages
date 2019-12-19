@@ -1,4 +1,16 @@
 class User < ApplicationRecord
+  # explicitly tells Rails the foreign_key is "follower_id"
+  # An id used to connect two database tables is known as a foreign key
+  # A follows B; This is an active relationship for A (who is a follower)
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+
+  # A follows B but B doesn't follow back; This is a passive relationship for B (who is a followed)
+  has_many :passive_relationships, class_name:  "Relationship", foreign_key: "followed_id", dependent: :destroy
+
+  # explicitly tells Rails that the source of the 'following_id array' is the set of 'followed ids'.
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
   #create association with microposts
   #also, when a user is deleted, all of its associated microposts should be deleted as well
   has_many :microposts, dependent: :destroy
@@ -83,10 +95,31 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # Defines a proto-feed.
-  # See "Following users" for the full implementation.
+  # Returns a user's status feed.
+  # this method utilize the combination of Rails, Ruby, and SQL for efficiency
   def feed
-    Micropost.where("user_id = ?", id)
+    #get all the user_ids the current_user are following
+    following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+
+    #and then get all of the microposts correspoding to those user_ids, including the current_users's
+    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+  end
+
+  #helper methods for User relationship model
+
+  # Follows a user.
+  def follow(other_user)
+    following << other_user
+  end
+
+  # Unfollows a user.
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  # Returns true if the current user is following the other user.
+  def following?(other_user)
+    following.include?(other_user)
   end
 
   private
