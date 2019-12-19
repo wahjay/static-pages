@@ -1,0 +1,4 @@
+<%= link_to gravatar_for(current_user, size: 50), current_user, { :style => "float:left"} %>
+<h1 style="margin-left: 60px;"><%= current_user.name %></h1>
+<span style="margin-left: 60px;"><%= link_to "view my profile", current_user %></span>
+<span style="margin-left: 60px;"><%= pluralize(current_user.microposts.count, "micropost") %></span>

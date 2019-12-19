@@ -15,6 +15,7 @@ User.create!(name:  "Admin",
              activated: true,
              activated_at: Time.zone.now)
 
+#generate other sample users
 99.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
@@ -25,4 +26,11 @@ User.create!(name:  "Admin",
                password_confirmation: password,
                activated: true,
                activated_at: Time.zone.now)
+end
+
+#generate sample microposts for the first 6 users in the database
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Lorem.sentence
+  users.each { |user| user.microposts.create!(content: content) }
 end

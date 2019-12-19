@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  #create association with microposts
+  #also, when a user is deleted, all of its associated microposts should be deleted as well
+  has_many :microposts, dependent: :destroy
   #virtual attributes
   attr_accessor :remember_token, :activation_token, :reset_token
   before_create :create_activation_digest
@@ -66,9 +69,7 @@ class User < ApplicationRecord
     self.reset_token = User.new_token
     #get the reset_digest from the newly generated reset_token
     #and save it to the database for later authetication
-    #update_attribute(:reset_digest,  User.digest(reset_token))
     #also get the time when the reset_token is created
-    #update_attribute(:reset_sent_at, Time.zone.now)
     update_columns(reset_digest:  User.digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
@@ -80,6 +81,12 @@ class User < ApplicationRecord
   # Returns true if a password reset has expired.
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  # Defines a proto-feed.
+  # See "Following users" for the full implementation.
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
   private

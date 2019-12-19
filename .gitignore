@@ -21,6 +21,9 @@
 /storage/*
 !/storage/.keep
 
+# Ignore uploaded test images.
+/public/uploads
+
 /public/assets
 .byebug_history
 
