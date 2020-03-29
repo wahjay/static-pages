@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails',                      '6.0.0'
+gem 'rails',                      '6.0.2.2'
 gem 'aws-sdk-s3',                 '1.46.0', require: false
 gem 'image_processing',           '1.9.3'
 gem 'carrierwave',                '~> 2.0'
@@ -21,6 +21,7 @@ gem 'bootsnap',                   '1.4.4', require: false
 gem "rack",                        ">= 2.0.8"
 gem "nokogiri",                    ">= 1.10.8"
 gem "loofah",                      ">= 2.3.1"
+gem "actionview",                   ">= 6.0.2.2"
 
 
 group :development, :test do
