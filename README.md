@@ -14,4 +14,4 @@ is available jointly under the MIT License and the Beerware License. See
 
 ## App is online on Heroku
 
-You can visit my app from https://wahjay.herokuapp.com
+You can visit the app from https://wahjay.herokuapp.com
